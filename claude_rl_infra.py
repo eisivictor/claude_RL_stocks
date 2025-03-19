@@ -640,11 +640,11 @@ def plot_results_old(df, balance_history, net_worth_history):
     plt.savefig('msft_trading_results.png')
     plt.show()
 
-def testing_agent(data_frame):
+def testing_agent(agent, data_frame, loopback_window_size, initial_capital):
     print("\nTesting the agent...")
     agent.epsilon = 0
-    test_env = StockTradingEnv(data_frame, initial_balance=INITIAL_CAPITAL,
-                           lookback_window_size=LOOKBACK_WINDOW_SIZE)
+    test_env = StockTradingEnv(data_frame, initial_balance=initial_capital,
+                           lookback_window_size=loopback_window_size)
 
     balance_history, net_worth_history, transactions  = test_agent(test_env, agent)
 
@@ -652,19 +652,19 @@ def testing_agent(data_frame):
     plot_results(data_frame, balance_history, net_worth_history, transactions)
 
     # Calculate buy and hold strategy returns for comparison
-    buy_and_hold_initial = data_frame.iloc[LOOKBACK_WINDOW_SIZE]['Close']
+    buy_and_hold_initial = data_frame.iloc[loopback_window_size]['Close']
     buy_and_hold_final = data_frame.iloc[-1]['Close']
-    buy_and_hold_shares = INITIAL_CAPITAL / buy_and_hold_initial
+    buy_and_hold_shares = initial_capital / buy_and_hold_initial
     buy_and_hold_value = buy_and_hold_shares * buy_and_hold_final
-    buy_and_hold_return = ((buy_and_hold_value - INITIAL_CAPITAL) / INITIAL_CAPITAL) * 100
+    buy_and_hold_return = ((buy_and_hold_value - initial_capital) / initial_capital) * 100
 
     print("\nBuy and Hold Strategy:")
-    print(f"Starting Balance: ${INITIAL_CAPITAL:.2f}")
+    print(f"Starting Balance: ${initial_capital:.2f}")
     print(f"Final Value: ${buy_and_hold_value:.2f}")
     print(f"Return: {buy_and_hold_return:.2f}%")
 
     print("\nRL Agent vs Buy and Hold:")
-    print(f"RL Agent Return: {((net_worth_history[-1] - INITIAL_CAPITAL) / INITIAL_CAPITAL) * 100:.2f}%")
+    print(f"RL Agent Return: {((net_worth_history[-1] - initial_capital) / initial_capital) * 100:.2f}%")
     print(f"Buy and Hold Return: {buy_and_hold_return:.2f}%")
 
     print(f"last RL Agent action:\\n {transactions[0][-1]}")

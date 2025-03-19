@@ -13,7 +13,8 @@ BATCH_SIZE = 64
 LEARNING_RATE = 0.001
 EPSILON_INITIAL = 1.0
 EPSILON_FINAL = 0.01
-EPSILON_DECAY_STEPS = 10000
+EPSILON_DECAY_STEPS = 1000
+#EPSILON_DECAY_STEPS = 10000
 #EPSILON_DECAY_STEPS = 100
 MEMORY_SIZE = 10000
 TOTAL_EPISODES = 10
@@ -41,11 +42,16 @@ action_size = train_env.action_space.n
 agent = DQNAgent(state_size, action_size, EPSILON_INITIAL,
                  MEMORY_SIZE, EPSILON_FINAL, EPSILON_DECAY_STEPS, GAMMA, LEARNING_RATE)
 
+# Load the trained model
+agent.load('msft_trading_model.weights.h5')
+
 # Train agent
 print("\nTraining the agent...")
 #agent.epsilon = EPSILON_FINAL
-#agent.epsilon = 0.5
-train_scores = train_agent(train_env, agent, episodes=40, batch_size=BATCH_SIZE)
+agent.epsilon = 0.1
+train_scores = train_agent(train_env, agent, episodes=10, batch_size=BATCH_SIZE)
 
+testing_agent(agent, data, LOOKBACK_WINDOW_SIZE, INITIAL_CAPITAL)
 
-testing_agent(data)
+# Save the trained model
+agent.save('msft_trading_model.weights.h5')
