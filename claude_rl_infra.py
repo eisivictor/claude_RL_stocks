@@ -87,8 +87,8 @@ class DQNAgent:
         # Copy weights from model to target_model
         self.target_model.set_weights(self.model.get_weights())
 
-    def reset_epsilon(self):
-        self.epsilon = EPSILON_INITIAL  # exploration rate
+    def reset_epsilon(self, value):
+        self.epsilon = value  # exploration rate
 
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
@@ -327,7 +327,7 @@ class StockTradingEnv(gym.Env):
 
         # Pad observation if needed
         if len(obs) < self.lookback_window_size:
-            padding = np.zeros((self.lookback_window_size - len(obs), len(features)))
+            padding = np.zeros((self.lookback_window_size - len(obs), len(self.features)))
             obs = np.vstack([padding, obs])
 
         return obs
