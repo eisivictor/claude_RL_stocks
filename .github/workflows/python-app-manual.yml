@@ -40,7 +40,7 @@ jobs:
       run: python3 aapl_rl.py
     - name: commit changes
       run: |
-        #git config --global user.name 'Victor Eiskovits'
-        #git config --global user.email 'eisivictor@github.com'
-        #git commit -am "Automated report"
-        #git push
+        git config --global user.name 'Victor Eiskovits'
+        git config --global user.email 'eisivictor@github.com'
+        git commit -am "Automated report"
+        git push
