@@ -26,12 +26,12 @@ print("Fetching AAPL historical data...")
 data = get_historical_data('AAPL', period=1)
 
 # Split data for training and testing (80% training, 20% testing)
-split_idx = int(len(data) * 0.8)
-train_data = data.iloc[:split_idx]
-test_data = data.iloc[split_idx-LOOKBACK_WINDOW_SIZE:]  # Include lookback window
+#split_idx = int(len(data) * 0.8)
+#train_data = data.iloc[:split_idx]
+#test_data = data.iloc[split_idx-LOOKBACK_WINDOW_SIZE:]  # Include lookback window
 
 # Create training environment
-train_env = StockTradingEnv(train_data, initial_balance=INITIAL_CAPITAL,
+train_env = StockTradingEnv(data, initial_balance=INITIAL_CAPITAL,
                                lookback_window_size=LOOKBACK_WINDOW_SIZE)
 
 # Define state and action sizes
@@ -43,15 +43,17 @@ agent = DQNAgent(state_size, action_size, EPSILON_INITIAL,
                  MEMORY_SIZE, EPSILON_FINAL, EPSILON_DECAY_STEPS, GAMMA, LEARNING_RATE)
 
 # Load the trained model
-#agent.load('aapl_trading_model.weights.h5')
+print("loading the model weights...")
+agent.load('aapl_trading_model.weights.h5')
 
 # Train agent
 print("\nTraining the agent...")
 #agent.epsilon = EPSILON_FINAL
-#agent.epsilon = 0.1
+#agent.epsilon = 0.5
 train_scores = train_agent(train_env, agent, episodes=10, batch_size=BATCH_SIZE)
 
 testing_agent('aapl', agent, data, LOOKBACK_WINDOW_SIZE, INITIAL_CAPITAL)
 
 # Save the trained model
+print("saving the model weights...")
 agent.save('aapl_trading_model.weights.h5')
