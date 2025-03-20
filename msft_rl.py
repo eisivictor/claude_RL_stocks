@@ -43,6 +43,7 @@ agent = DQNAgent(state_size, action_size, EPSILON_INITIAL,
                  MEMORY_SIZE, EPSILON_FINAL, EPSILON_DECAY_STEPS, GAMMA, LEARNING_RATE)
 
 # Load the trained model
+print("\loading the model weights...")
 agent.load('msft_trading_model.weights.h5')
 
 # Train agent
@@ -54,4 +55,5 @@ train_scores = train_agent(train_env, agent, episodes=10, batch_size=BATCH_SIZE)
 testing_agent('msft', agent, data, LOOKBACK_WINDOW_SIZE, INITIAL_CAPITAL)
 
 # Save the trained model
+print("\saving the model weights...")
 agent.save('msft_trading_model.weights.h5')
