@@ -13,8 +13,8 @@ BATCH_SIZE = 64
 LEARNING_RATE = 0.001
 EPSILON_INITIAL = 1.0
 EPSILON_FINAL = 0.01
-EPSILON_DECAY_STEPS = 1000
-#EPSILON_DECAY_STEPS = 10000
+#EPSILON_DECAY_STEPS = 1000
+EPSILON_DECAY_STEPS = 10000
 #EPSILON_DECAY_STEPS = 100
 MEMORY_SIZE = 10000
 TOTAL_EPISODES = 10
@@ -50,7 +50,7 @@ agent.load('msft_trading_model.weights.h5')
 print("\nTraining the agent...")
 #agent.epsilon = EPSILON_FINAL
 agent.epsilon = 0.5
-train_scores = train_agent(train_env, agent, episodes=20, batch_size=BATCH_SIZE)
+train_scores = train_agent(train_env, agent, episodes=40, batch_size=BATCH_SIZE)
 
 testing_agent('msft', agent, data, LOOKBACK_WINDOW_SIZE, INITIAL_CAPITAL)
 
