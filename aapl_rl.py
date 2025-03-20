@@ -50,7 +50,7 @@ agent.load('aapl_trading_model.weights.h5')
 print("\nTraining the agent...")
 #agent.epsilon = EPSILON_FINAL
 #agent.epsilon = 0.5
-train_scores = train_agent(train_env, agent, episodes=10, batch_size=BATCH_SIZE)
+train_scores = train_agent(train_env, agent, episodes=20, batch_size=BATCH_SIZE)
 
 testing_agent('aapl', agent, data, LOOKBACK_WINDOW_SIZE, INITIAL_CAPITAL)
 
