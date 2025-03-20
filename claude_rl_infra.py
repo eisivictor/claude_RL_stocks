@@ -553,7 +553,7 @@ def test_agent(env, agent):
     return balance_history, net_worth_history, transactions
 
 # Plot results
-def plot_results(df, balance_history, net_worth_history, transactions):
+def plot_results(name, df, balance_history, net_worth_history, transactions):
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 12), sharex=True)  # Use sharex=True to align x-axes
 
     # Determine the common time period (when net worth history starts)
@@ -615,7 +615,7 @@ def plot_results(df, balance_history, net_worth_history, transactions):
     plt.gcf().autofmt_xdate()
 
     plt.tight_layout()
-    plt.savefig('msft_trading_results.png')
+    plt.savefig(f'{name}_trading_results.png')
     plt.show()
 
 # Plot results
@@ -640,7 +640,7 @@ def plot_results_old(df, balance_history, net_worth_history):
     plt.savefig('msft_trading_results.png')
     plt.show()
 
-def testing_agent(agent, data_frame, loopback_window_size, initial_capital):
+def testing_agent(name, agent, data_frame, loopback_window_size, initial_capital):
     print("\nTesting the agent...")
     agent.epsilon = 0
     test_env = StockTradingEnv(data_frame, initial_balance=initial_capital,
@@ -649,7 +649,7 @@ def testing_agent(agent, data_frame, loopback_window_size, initial_capital):
     balance_history, net_worth_history, transactions  = test_agent(test_env, agent)
 
     # Plot results
-    plot_results(data_frame, balance_history, net_worth_history, transactions)
+    plot_results(name, data_frame, balance_history, net_worth_history, transactions)
 
     # Calculate buy and hold strategy returns for comparison
     buy_and_hold_initial = data_frame.iloc[loopback_window_size]['Close']

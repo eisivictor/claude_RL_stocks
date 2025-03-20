@@ -21,9 +21,9 @@ TOTAL_EPISODES = 10
 INITIAL_CAPITAL = 10000
 
 
-# Get AAPL data
-print("Fetching AAPL historical data...")
-data = get_historical_data('AAPL', period=1)
+# Get MSFT data
+print("Fetching MSFT historical data...")
+data = get_historical_data('MSFT', period=1)
 
 # Split data for training and testing (80% training, 20% testing)
 split_idx = int(len(data) * 0.8)
@@ -43,15 +43,15 @@ agent = DQNAgent(state_size, action_size, EPSILON_INITIAL,
                  MEMORY_SIZE, EPSILON_FINAL, EPSILON_DECAY_STEPS, GAMMA, LEARNING_RATE)
 
 # Load the trained model
-#agent.load('aapl_trading_model.weights.h5')
+agent.load('msft_trading_model.weights.h5')
 
 # Train agent
 print("\nTraining the agent...")
 #agent.epsilon = EPSILON_FINAL
-#agent.epsilon = 0.1
-train_scores = train_agent(train_env, agent, episodes=100, batch_size=BATCH_SIZE)
+agent.epsilon = 0.1
+train_scores = train_agent(train_env, agent, episodes=10, batch_size=BATCH_SIZE)
 
-testing_agent('aapl', agent, data, LOOKBACK_WINDOW_SIZE, INITIAL_CAPITAL)
+testing_agent('msft', agent, data, LOOKBACK_WINDOW_SIZE, INITIAL_CAPITAL)
 
 # Save the trained model
-agent.save('aapl_trading_model.weights.h5')
+agent.save('msft_trading_model.weights.h5')
