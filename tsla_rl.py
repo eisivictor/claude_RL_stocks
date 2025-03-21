@@ -44,7 +44,7 @@ agent = DQNAgent(state_size, action_size, EPSILON_INITIAL,
 
 # Load the trained model
 print("loading the model weights...")
-#agent.load('tsla_trading_model.weights.h5')
+agent.load('tsla_trading_model.weights.h5')
 
 # Train agent
 print("\nTraining the agent...")
