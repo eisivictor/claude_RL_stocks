@@ -40,6 +40,8 @@ jobs:
       run: python3 aapl_rl.py
     - name: Run tsla_rl.py
       run: python3 tsla_rl.py
+    - name: Run intc_rl.py
+      run: python3 intc_rl.py
     - name: commit changes
       run: |
         git config --global user.name 'Victor Eiskovits'
